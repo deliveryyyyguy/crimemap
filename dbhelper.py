@@ -1,7 +1,7 @@
 import pymysql
 import dbconfig
 
-class DBHelper
+class DBHelper:
 
   def connect(self, database="crimemap"):
     return pymysql.connect(host='localhost',
@@ -10,9 +10,9 @@ class DBHelper
     	      db = database)
 
   def get_all_inputs(self):
-  connection = self.connect()
+    connection = self.connect()
     try:
-      query = "SELECT decription FROM crimes;"
+      query = "SELECT description FROM crimes;"
       with connection.cursor() as cursor:
 	cursor.execute(query)
       return cursor.fetchall()
@@ -23,7 +23,7 @@ class DBHelper
     connection = self.connect()
     try:
       #Secruity flaw
-      See section on SQL injection below
+      # See section on SQL injection below
       query = "INSERT INTO crimes (description) VALUES ('{}');".format(data)
       with connection.cursor() as cursor:
         cursor.execute(query)
@@ -31,12 +31,12 @@ class DBHelper
     finally:
        connection.close()
 
-def clear_all(self):
-  connection = self.connect()
-  try:
-    query = "DELETE FROM crimes;"
-    with connection.cursor() as cursor:
-      cursor.execute(query)
-      connection.commit()
-  finally:
-    connection.close()
+  def clear_all(self):
+    connection = self.connect()
+    try:
+      query = "DELETE FROM crimes;"
+      with connection.cursor() as cursor:
+        cursor.execute(query)
+        connection.commit()
+    finally:
+      connection.close()
